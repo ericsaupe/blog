@@ -3,29 +3,46 @@
 require 'rails_helper'
 
 RSpec.describe 'Posts', type: :system do
-  describe 'new', js: true do
+  describe 'index' do
+    let!(:posts) { create_list(:post, 3) }
+
+    it 'renders a list of posts' do
+      visit '/'
+      posts.each do |post|
+        expect(page).to have_link(post.title)
+        expect(page).to have_text(post.content)
+      end
+    end
+  end
+
+  describe 'new' do
     it 'renders the new post form' do
-      visit '/posts/new'
-      expect(page).to have_text('New Post')
+      visit '/'
+      click_on('New Post')
+      expect(page).to have_selector('h1', text: 'New Post')
       expect(page).to have_field('Title')
       expect(page).to have_css('input#post_title[required]')
       expect(page).to have_css('trix-editor[required]')
       expect(page).to have_button('Submit')
       expect(page).to have_button('Cancel')
     end
+  end
 
+  describe 'create' do
     it 'creates the post successfully' do
-      visit '/posts/new'
-      fill_in('Title', with: 'Test Title')
-      find('trix-editor').click.set('Test text')
+      title = Faker::Lorem.sentence
+      body = Faker::Lorem.paragraph
+
+      visit '/'
+      click_on('New Post')
+      fill_in('Title', with: title)
+      find('trix-editor').click.set(body)
       click_on('Submit')
-      expect(page).to have_text('Successfully created post.')
-      expect(page).to have_text('Test Title')
-      expect(page).to have_text('Test text')
+      expect(page).to have_text('Created the post successfully!')
+      expect(page).to have_text(title)
+      expect(page).to have_text(body)
       expect(page).not_to have_button('Submit')
       expect(page).not_to have_button('Cancel')
     end
-
-    xit 'displays an error message when data is missing'
   end
 end

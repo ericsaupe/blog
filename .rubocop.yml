@@ -14,3 +14,7 @@ AllCops:
 Style/StringLiterals:
   Enabled: true
   EnforcedStyle: single_quotes
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'

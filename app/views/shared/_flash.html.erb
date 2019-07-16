@@ -1,0 +1,5 @@
+<% flash.each do |key, value| %>
+  <div class="notification is-<%= bulma_flash_class(key) %>">
+    <%= value %>
+  </div>
+<% end %>
