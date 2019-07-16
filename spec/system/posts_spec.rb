@@ -3,6 +3,18 @@
 require 'rails_helper'
 
 RSpec.describe 'Posts', type: :system do
+  describe 'index' do
+    let!(:posts) { create_list(:post, 3) }
+
+    it 'renders a list of posts' do
+      visit '/'
+      posts.each do |post|
+        expect(page).to have_link(post.title)
+        expect(page).to have_text(post.content)
+      end
+    end
+  end
+
   describe 'new' do
     it 'renders the new post form' do
       visit '/'
