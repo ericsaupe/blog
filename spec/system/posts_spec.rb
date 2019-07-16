@@ -5,8 +5,9 @@ require 'rails_helper'
 RSpec.describe 'Posts', type: :system do
   describe 'new' do
     it 'renders the new post form' do
-      visit '/posts/new'
-      expect(page).to have_text('New Post')
+      visit '/'
+      click_on('New Post')
+      expect(page).to have_selector('h1', text: 'New Post')
       expect(page).to have_field('Title')
       expect(page).to have_css('input#post_title[required]')
       expect(page).to have_css('trix-editor[required]')
@@ -18,9 +19,10 @@ RSpec.describe 'Posts', type: :system do
   describe 'create' do
     it 'creates the post successfully' do
       title = Faker::Lorem.sentence
-      body = Faker::Lorem.paragraphs.join("\n")
+      body = Faker::Lorem.paragraph
 
-      visit '/posts/new'
+      visit '/'
+      click_on('New Post')
       fill_in('Title', with: title)
       find('trix-editor').click.set(body)
       click_on('Submit')
