@@ -1,0 +1,24 @@
+<%= form_with(model: post) do |form| %>
+  <div class="field">
+    <%= form.label :title, class: 'label' %>
+    <div class="control">
+      <%= form.text_field :title, class: 'input', required: true %>
+    </div>
+  </div>
+  
+  <div class="field">
+    <%= form.label :content, class: 'label' %>
+    <div class="control">
+      <%= form.rich_text_area :content, required: true %>
+    </div>
+  </div>
+
+  <div class="field is-grouped">
+    <div class="control">
+      <%= form.submit 'Submit', class: 'button is-link' %>
+    </div>
+    <div class="control">
+      <%= form.button 'Cancel', class: 'button is-text' %>
+    </div>
+  </div>
+<% end %>
