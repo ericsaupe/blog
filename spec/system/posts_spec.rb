@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Posts', type: :system do
-  describe 'new', js: true do
+  describe 'new' do
     it 'renders the new post form' do
       visit '/posts/new'
       expect(page).to have_text('New Post')
@@ -19,13 +19,11 @@ RSpec.describe 'Posts', type: :system do
       fill_in('Title', with: 'Test Title')
       find('trix-editor').click.set('Test text')
       click_on('Submit')
-      expect(page).to have_text('Successfully created post.')
+      expect(page).to have_text('Created the post successfully!')
       expect(page).to have_text('Test Title')
       expect(page).to have_text('Test text')
       expect(page).not_to have_button('Submit')
       expect(page).not_to have_button('Cancel')
     end
-
-    xit 'displays an error message when data is missing'
   end
 end

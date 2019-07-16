@@ -10,6 +10,9 @@
   </head>
 
   <body>
-    <%= yield %>
+    <section class="section">
+      <%= render partial: 'shared/flash' %>
+      <%= yield %>
+    </section>
   </body>
 </html>
