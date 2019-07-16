@@ -13,15 +13,20 @@ RSpec.describe 'Posts', type: :system do
       expect(page).to have_button('Submit')
       expect(page).to have_button('Cancel')
     end
+  end
 
+  describe 'create' do
     it 'creates the post successfully' do
+      title = Faker::Lorem.sentence
+      body = Faker::Lorem.paragraphs.join("\n")
+
       visit '/posts/new'
-      fill_in('Title', with: 'Test Title')
-      find('trix-editor').click.set('Test text')
+      fill_in('Title', with: title)
+      find('trix-editor').click.set(body)
       click_on('Submit')
       expect(page).to have_text('Created the post successfully!')
-      expect(page).to have_text('Test Title')
-      expect(page).to have_text('Test text')
+      expect(page).to have_text(title)
+      expect(page).to have_text(body)
       expect(page).not_to have_button('Submit')
       expect(page).not_to have_button('Cancel')
     end
