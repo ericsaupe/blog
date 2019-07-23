@@ -1,0 +1,23 @@
+<h1 class="title">Resend confirmation instructions</h1>
+
+<div class="card">
+  <div class="card-content">
+    <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+
+      <div class="field">
+        <%= f.label :email, class: 'label' %>
+        <div class="control">
+          <%= f.email_field :email, autofocus: true, autocomplete: 'email', class: 'input' %>
+        </div>
+      </div>
+
+      <div class="actions">
+        <%= f.submit 'Resend confirmation instructions', class: 'button is-primary' %>
+      </div>
+    <% end %>
+  </div>
+  <footer class="card-footer">
+    <%= render "devise/shared/links" %>
+  </footer>
+</div>

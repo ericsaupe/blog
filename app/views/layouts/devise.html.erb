@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Blog</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <%= render partial: 'shared/navbar' %>
+    <%= render partial: 'shared/flash' %>
+
+    <section class="section">
+      <div class="columns">
+        <div class="column is-half is-offset-one-quarter"> 
+          <%= yield %>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
