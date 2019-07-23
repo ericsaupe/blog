@@ -1,9 +1,10 @@
 <% @posts.each do |post| %>
-  <article class="message">
+  <article id="post-<%= post.id %>" class="message">
     <div class="message-header">
       <p>
         <%= link_to post.title, post_path(post) %>
       </p>
+      <%= link_to 'Edit', edit_post_path(post), class: 'button is-link'%>
     </div>
     <div class="message-body">
       <%= post.content %>

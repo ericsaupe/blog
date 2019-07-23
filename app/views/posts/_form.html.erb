@@ -18,6 +18,16 @@
       <%= form.submit 'Submit', class: 'button is-link' %>
     </div>
     <div class="control">
+      <%= link_to 'Delete', 
+        post_path(post), 
+        method: :delete, 
+        class: 'button is-danger', 
+        data: {
+          confirm: 'Are you sure you want to delete this?'
+        } 
+      %>
+    </div>
+    <div class="control">
       <%= form.button 'Cancel', class: 'button is-text' %>
     </div>
   </div>

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class PostsController < ApplicationController
+  before_action :set_post, only: %i[show edit update]
+
   def index
     @posts = Post.all
   end
@@ -20,21 +22,42 @@ class PostsController < ApplicationController
     end
   end
 
-  def show
-    @post = Post.find(params[:id])
+  def show; end
+
+  def edit; end
+
+  def update
+    if @post.update(post_params)
+      flash[:success] = 'Updated the post successfully!'
+      redirect_to post_path(@post)
+    else
+      flash[:error] = @post.errors.full_messages.to_sentence
+      render :edit
+    end
   end
 
-  def edit
-    @post = Post.find(params[:id])
+  def destroy
+    @post = Post.find_by(id: params[:id])
+    @post&.destroy
+    if @post.nil? || @post.destroyed?
+      flash[:success] = 'Deleted the post successfully!'
+      redirect_to root_path
+    else
+      flash[:error] = @post.errors.full_messages.to_sentence
+      redirect_to edit_post_path(@post)
+    end
   end
-
-  def update; end
-
-  def destroy; end
 
   private
 
   def post_params
     params.require(:post).permit(:title, :content)
+  end
+
+  ##
+  # Sets the @post variables based on the :id param
+  #
+  def set_post
+    @post = Post.find(params[:id])
   end
 end
