@@ -45,4 +45,52 @@ RSpec.describe 'Posts', type: :system do
       expect(page).not_to have_button('Cancel')
     end
   end
+
+  context 'existing post' do
+    let!(:post) { create(:post) }
+
+    describe 'edit' do
+      it 'renders the edit form when Edit is clicked' do
+        visit '/'
+        within("#post-#{post.id}") do
+          click_on('Edit')
+        end
+        expect(page).to have_text('Edit Post')
+        expect(page).to have_text(post.title)
+      end
+    end
+
+    describe 'update' do
+      it 'updates the post when the edit form is submitted' do
+        new_title = 'Updated title'
+        new_body = 'Updated body'
+        visit '/'
+        within("#post-#{post.id}") do
+          click_on('Edit')
+        end
+        fill_in('Title', with: new_title)
+        find('trix-editor').click.set(new_body)
+        click_on('Submit')
+        expect(page).to have_text('Updated the post successfully!')
+        expect(page).to have_text(new_title)
+        expect(page).to have_text(new_body)
+        expect(page).not_to have_button('Submit')
+        expect(page).not_to have_button('Cancel')
+      end
+    end
+
+    describe 'destroy' do
+      it 'deletes the post with a confirmation message' do
+        visit '/'
+        within("#post-#{post.id}") do
+          click_on('Edit')
+        end
+        page.accept_confirm do
+          click_on('Delete')
+        end
+        expect(page).to have_text('Deleted the post successfully!')
+        expect(page).not_to have_text(post.title)
+      end
+    end
+  end
 end
