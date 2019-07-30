@@ -9,13 +9,14 @@ module ApplicationHelper
   #
   def bulma_flash_class(key)
     key = key.to_sym # Ensure we are working with a symbol
-    
-    if key == :error
-      return :danger
-    elsif key == :notice
-      return :success
-    end
 
-    key
+    case key
+    when :error
+      :danger
+    when :notice
+      :success
+    else
+      key
+    end
   end
 end
