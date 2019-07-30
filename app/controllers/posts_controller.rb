@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class PostsController < ApplicationController
+  before_action :authenticate_user!, only: %i[new create edit update destroy]
   before_action :set_post, only: %i[show edit update]
 
   def index
@@ -12,7 +13,11 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(post_params)
+    # Use strong params and merge current user as the author
+    clean_params = post_params
+    clean_params.merge!(author: current_user)
+
+    @post = Post.new(clean_params)
     if @post.save
       flash[:success] = 'Created the post successfully!'
       redirect_to post_path(@post)
