@@ -4,8 +4,16 @@ require 'rails_helper'
 
 RSpec.describe ApplicationHelper, type: :helper do
   describe '#bulma_flash_class' do
+    it 'casts a string to a symbol' do
+      expect(helper.bulma_flash_class('string')).to eq(:string)
+    end
+
     it 'returns :danger when :error is given' do
       expect(helper.bulma_flash_class(:error)).to eq(:danger)
+    end
+
+    it 'returns :success when :notice is given' do
+      expect(helper.bulma_flash_class(:notice)).to eq(:success)
     end
 
     it 'returns the key when nothing special is happening' do

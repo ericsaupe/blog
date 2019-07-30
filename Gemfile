@@ -6,7 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.6.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.0.0.rc1'
+gem 'rails', '~> 6.0.0.rc2'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', '~> 1.4'
 # Use Puma as the app server
@@ -38,6 +38,8 @@ gem 'rubocop-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'factory_bot_rails' # Fake object generation
+  gem 'faker' # Fake test data
   gem 'hirb'
   gem 'hirb-unicode-steakknife', require: 'hirb-unicode'
   gem 'pry-byebug'
@@ -56,8 +58,6 @@ end
 group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'
-  gem 'factory_bot_rails' # Fake object generation
-  gem 'faker' # Fake test data
   gem 'rspec-rails'
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers

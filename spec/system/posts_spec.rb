@@ -15,81 +15,90 @@ RSpec.describe 'Posts', type: :system do
     end
   end
 
-  describe 'new' do
-    it 'renders the new post form' do
-      visit '/'
-      click_on('New Post')
-      expect(page).to have_selector('h1', text: 'New Post')
-      expect(page).to have_field('Title')
-      expect(page).to have_css('input#post_title[required]')
-      expect(page).to have_css('trix-editor[required]')
-      expect(page).to have_button('Submit')
-      expect(page).to have_button('Cancel')
+  context 'authenticated' do
+    let(:user) { create(:user) }
+
+    before(:each) do
+      login_as(user, scope: :user)
     end
-  end
 
-  describe 'create' do
-    it 'creates the post successfully' do
-      title = Faker::Lorem.sentence
-      body = Faker::Lorem.paragraph
-
-      visit '/'
-      click_on('New Post')
-      fill_in('Title', with: title)
-      find('trix-editor').click.set(body)
-      click_on('Submit')
-      expect(page).to have_text('Created the post successfully!')
-      expect(page).to have_text(title)
-      expect(page).to have_text(body)
-      expect(page).not_to have_button('Submit')
-      expect(page).not_to have_button('Cancel')
-    end
-  end
-
-  context 'existing post' do
-    let!(:post) { create(:post) }
-
-    describe 'edit' do
-      it 'renders the edit form when Edit is clicked' do
+    describe 'new' do
+      it 'renders the new post form' do
         visit '/'
-        within("#post-#{post.id}") do
-          click_on('Edit')
-        end
-        expect(page).to have_text('Edit Post')
-        expect(page).to have_text(post.title)
+        click_on('New Post')
+        expect(page).to have_selector('h1', text: 'New Post')
+        expect(page).to have_field('Title')
+        expect(page).to have_css('input#post_title[required]')
+        expect(page).to have_css('trix-editor[required]')
+        expect(page).to have_button('Submit')
+        expect(page).to have_button('Cancel')
       end
     end
 
-    describe 'update' do
-      it 'updates the post when the edit form is submitted' do
-        new_title = 'Updated title'
-        new_body = 'Updated body'
+    describe 'create' do
+      it 'creates the post successfully' do
+        title = Faker::Lorem.sentence
+        body = Faker::Lorem.paragraph
+
         visit '/'
-        within("#post-#{post.id}") do
-          click_on('Edit')
-        end
-        fill_in('Title', with: new_title)
-        find('trix-editor').click.set(new_body)
+        click_on('New Post')
+        fill_in('Title', with: title)
+        find('trix-editor').click.set(body)
         click_on('Submit')
-        expect(page).to have_text('Updated the post successfully!')
-        expect(page).to have_text(new_title)
-        expect(page).to have_text(new_body)
+        expect(page).to have_text('Created the post successfully!')
+        expect(page).to have_text(title)
+        expect(page).to have_text(body)
+        expect(page).to have_text("By #{user.email}")
         expect(page).not_to have_button('Submit')
         expect(page).not_to have_button('Cancel')
       end
     end
 
-    describe 'destroy' do
-      it 'deletes the post with a confirmation message' do
-        visit '/'
-        within("#post-#{post.id}") do
-          click_on('Edit')
+    context 'existing post' do
+      let!(:post) { create(:post) }
+
+      describe 'edit' do
+        it 'renders the edit form when Edit is clicked' do
+          visit '/'
+          within("#post-#{post.id}") do
+            click_on('Edit')
+          end
+          expect(page).to have_text('Edit Post')
+          expect(page).to have_text(post.title)
         end
-        page.accept_confirm do
-          click_on('Delete')
+      end
+
+      describe 'update' do
+        it 'updates the post when the edit form is submitted' do
+          new_title = 'Updated title'
+          new_body = 'Updated body'
+          visit '/'
+          within("#post-#{post.id}") do
+            click_on('Edit')
+          end
+          fill_in('Title', with: new_title)
+          find('trix-editor').click.set(new_body)
+          click_on('Submit')
+          expect(page).to have_text('Updated the post successfully!')
+          expect(page).to have_text(new_title)
+          expect(page).to have_text(new_body)
+          expect(page).not_to have_button('Submit')
+          expect(page).not_to have_button('Cancel')
         end
-        expect(page).to have_text('Deleted the post successfully!')
-        expect(page).not_to have_text(post.title)
+      end
+
+      describe 'destroy' do
+        it 'deletes the post with a confirmation message' do
+          visit '/'
+          within("#post-#{post.id}") do
+            click_on('Edit')
+          end
+          page.accept_confirm do
+            click_on('Delete')
+          end
+          expect(page).to have_text('Deleted the post successfully!')
+          expect(page).not_to have_text(post.title)
+        end
       end
     end
   end

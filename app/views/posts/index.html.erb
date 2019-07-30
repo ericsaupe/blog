@@ -3,6 +3,8 @@
     <div class="message-header">
       <p>
         <%= link_to post.title, post_path(post) %>
+        by <%= post.author || 'Anonymous' %>
+        at <%= post.created_at.strftime('%B %e, %Y %l:%M %P %Z') %>
       </p>
       <%= link_to 'Edit', edit_post_path(post), class: 'button is-link'%>
     </div>
