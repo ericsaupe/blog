@@ -8,10 +8,11 @@ namespace :sample_data do
     # Create the admin user
     user = User.find_by(email: 'admin@localhost')
     if user.blank?
-      User.create!(
+      user = User.create!(
         email: 'admin@localhost',
         password: 'test1234'
       )
+      user.add_role(:admin)
     end
 
     # Create posts

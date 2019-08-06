@@ -7,11 +7,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :posts, dependent: :nullify
-
-  def to_s
-    email
-  end
+  has_many :posts, dependent: :nullify, inverse_of: :author
 
   def admin?
     has_role?(:admin)
