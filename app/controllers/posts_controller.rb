@@ -3,13 +3,16 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, only: %i[new create edit update destroy]
   before_action :set_post, only: %i[show edit update]
+  before_action :authorize_post, only: %i[show edit update]
 
   def index
     @posts = Post.all
+    authorize @posts
   end
 
   def new
     @post = Post.new
+    authorize @post
   end
 
   def create
@@ -18,6 +21,8 @@ class PostsController < ApplicationController
     clean_params.merge!(author: current_user)
 
     @post = Post.new(clean_params)
+    authorize @post
+
     if @post.save
       flash[:success] = 'Created the post successfully!'
       redirect_to post_path(@post)
@@ -42,7 +47,9 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post = Post.find_by(id: params[:id])
+    @post = Post.find_by(slug: params[:id])
+    authorize @post
+
     @post&.destroy
     if @post.nil? || @post.destroyed?
       flash[:success] = 'Deleted the post successfully!'
@@ -63,6 +70,13 @@ class PostsController < ApplicationController
   # Sets the @post variables based on the :id param
   #
   def set_post
-    @post = Post.find(params[:id])
+    @post = Post.friendly.find(params[:id])
+  end
+
+  ##
+  # Authorizes via Pundit the post
+  #
+  def authorize_post
+    authorize @post
   end
 end

@@ -16,6 +16,10 @@ RSpec.describe 'Users', type: :system do
         end
         expect(page).to have_text('Welcome! You have signed up successfully.')
         expect(page).to have_css('.notification.is-success')
+        within('.notification.is-success') do
+          click_on(class: 'delete')
+        end
+        expect(page).not_to have_css('.notification.is-success')
       end
 
       it 'requires all fields' do
