@@ -6,7 +6,7 @@
         by <%= post.author || 'Anonymous' %>
         at <%= post.created_at.strftime('%B %e, %Y %l:%M %P %Z') %>
       </p>
-      <%= link_to 'Edit', edit_post_path(post), class: 'button is-link'%>
+      <%= link_to('Edit', edit_post_path(post), class: 'button is-link') if policy(post).edit? %>
     </div>
     <div class="message-body">
       <%= post.content %>
