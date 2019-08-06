@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  rolify
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -10,5 +11,13 @@ class User < ApplicationRecord
 
   def to_s
     email
+  end
+
+  def admin?
+    has_role?(:admin)
+  end
+
+  def author?
+    has_role?(:author)
   end
 end
