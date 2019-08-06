@@ -33,6 +33,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 # Our gems
 gem 'awesome_rails_console'
 gem 'devise'
+gem 'friendly_id'
 gem 'pundit'
 gem 'rolify'
 gem 'rubocop', require: false

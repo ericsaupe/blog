@@ -47,7 +47,7 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post = Post.find_by(id: params[:id])
+    @post = Post.find_by(slug: params[:id])
     authorize @post
 
     @post&.destroy
@@ -70,7 +70,7 @@ class PostsController < ApplicationController
   # Sets the @post variables based on the :id param
   #
   def set_post
-    @post = Post.find(params[:id])
+    @post = Post.friendly.find(params[:id])
   end
 
   ##
