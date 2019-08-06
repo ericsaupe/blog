@@ -1,5 +1,13 @@
 <% flash.each do |key, value| %>
-  <div class="notification is-<%= bulma_flash_class(key) %>">
+  <div 
+    class="notification is-<%= bulma_flash_class(key) %>" 
+    data-controller="flash"
+    data-target="flash.notification"
+  >
+    <button 
+      class="delete"
+      data-action="click->flash#close"
+    ></button>
     <%= value %>
   </div>
 <% end %>
