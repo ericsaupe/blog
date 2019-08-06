@@ -16,6 +16,10 @@ RSpec.describe ApplicationHelper, type: :helper do
       expect(helper.bulma_flash_class(:notice)).to eq(:success)
     end
 
+    it 'returns :warning when :alert is given' do
+      expect(helper.bulma_flash_class(:alert)).to eq(:warning)
+    end
+
     it 'returns the key when nothing special is happening' do
       non_special_keys = [
         :success,
