@@ -5,6 +5,13 @@
       <%= form.text_field :title, class: 'input', required: true %>
     </div>
   </div>
+
+  <div class="field">
+    <%= form.label :tags, class: 'label' %>
+    <div class="control">
+      <%= form.text_field :tags, type: 'tags', value: post.tags&.pluck(:name)&.join(','), data: { controller: 'tag' } %>
+    </div>
+  </div>
   
   <div class="field">
     <%= form.label :content, class: 'label' %>

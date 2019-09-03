@@ -1,3 +1,18 @@
 @import 'bulmaswatch/superhero/_variables';
 @import 'bulma/bulma';
 @import 'bulmaswatch/superhero/_overrides';
+
+trix-toolbar {
+  .trix-button {
+    background: $light;
+
+    .active {
+      background: $grey-darker;
+    }
+  }
+}
+
+.trix-content[contenteditable] {
+  background-color: $input-background-color;
+  color: $input-color;
+}

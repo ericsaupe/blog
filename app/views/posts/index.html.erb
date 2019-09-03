@@ -4,12 +4,13 @@
       <p>
         <%= link_to post.title, post_path(post) %>
         by <%= post.author&.email || 'Anonymous' %>
-        at <%= post.created_at.strftime('%B %e, %Y %l:%M %P %Z') %>
+        at <%= post.created_at.strftime('%B %e, %Y') %>
       </p>
       <%= link_to('Edit', edit_post_path(post), class: 'button is-link') if policy(post).edit? %>
     </div>
     <div class="message-body">
-      <%= post.content %>
+      <%= render partial: 'tags', locals: { post: post } %>
+      <%= truncate(post.content.to_s, length: 1000, omission: '...') %>
     </div>
   </article>
 <% end%>
