@@ -1,6 +1,6 @@
 <h1 class="title"><%= @post.title %></h1>
 <h2 class="subtitle">
   By <%= @post.author&.email || 'Anonymous' %>
-  at <%= @post.created_at.strftime('%B %e, %Y %l:%M %P %Z') %>
+  at <%= @post.created_at.strftime('%B %e, %Y') %>
 </h2>
 <%= @post.content %>
