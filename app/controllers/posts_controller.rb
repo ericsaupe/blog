@@ -24,6 +24,7 @@ class PostsController < ApplicationController
     authorize @post
 
     if @post.save
+      handle_tags
       flash[:success] = 'Created the post successfully!'
       redirect_to post_path(@post)
     else
@@ -38,6 +39,7 @@ class PostsController < ApplicationController
 
   def update
     if @post.update(post_params)
+      handle_tags
       flash[:success] = 'Updated the post successfully!'
       redirect_to post_path(@post)
     else
@@ -67,6 +69,13 @@ class PostsController < ApplicationController
   end
 
   ##
+  # Return the join param for Tags only
+  #
+  def tags_param
+    params.require(:post).permit(:tags).dig(:tags)
+  end
+
+  ##
   # Sets the @post variables based on the :id param
   #
   def set_post
@@ -78,5 +87,19 @@ class PostsController < ApplicationController
   #
   def authorize_post
     authorize @post
+  end
+
+  ##
+  # Makes sure post has all required tags based on
+  # submitted params
+  #
+  def handle_tags
+    return if tags_param.blank?
+
+    tag_names = tags_param.split(',')
+    tags = tag_names.map do |name|
+      Tag.find_or_create_by(name: name)
+    end
+    @post.tags = tags
   end
 end

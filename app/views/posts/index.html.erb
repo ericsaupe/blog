@@ -9,6 +9,7 @@
       <%= link_to('Edit', edit_post_path(post), class: 'button is-link') if policy(post).edit? %>
     </div>
     <div class="message-body">
+      <%= render partial: 'tags', locals: { post: post } %>
       <%= truncate(post.content.to_s, length: 1000, omission: '...') %>
     </div>
   </article>

@@ -3,4 +3,5 @@
   By <%= @post.author&.email || 'Anonymous' %>
   at <%= @post.created_at.strftime('%B %e, %Y') %>
 </h2>
+<%= render partial: 'tags', locals: { post: @post } %>
 <%= @post.content %>

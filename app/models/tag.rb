@@ -3,11 +3,12 @@
 class Tag < ApplicationRecord
   has_many :taggables, dependent: :destroy
 
-  before_save :downcase_name
+  before_save :clean_name
 
   private
 
-  def downcase_name
+  def clean_name
+    name.strip!
     name.downcase!
   end
 end

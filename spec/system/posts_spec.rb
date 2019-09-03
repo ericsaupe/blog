@@ -84,6 +84,7 @@ RSpec.describe 'Posts', type: :system do
           click_on('New Post')
           expect(page).to have_selector('h1', text: 'New Post')
           expect(page).to have_field('Title')
+          expect(page).to have_field('Tags')
           expect(page).to have_css('input#post_title[required]')
           expect(page).to have_css('trix-editor[required]')
           expect(page).to have_button('Submit')
@@ -99,10 +100,13 @@ RSpec.describe 'Posts', type: :system do
           visit '/'
           click_on('New Post')
           fill_in('Title', with: title)
+          find('.tagsinput input').click.set('test-tag')
+          find('.tagsinput input').native.send_keys(:return)
           find('trix-editor').click.set(body)
           click_on('Submit')
           expect(page).to have_text('Created the post successfully!')
           expect(page).to have_text(title)
+          expect(page).to have_text('test-tag')
           expect(page).to have_text(body)
           expect(page).to have_text("By #{user.email}")
           expect(page).not_to have_button('Submit')
@@ -112,7 +116,8 @@ RSpec.describe 'Posts', type: :system do
 
       context 'existing post' do
         context 'own post' do
-          let!(:post) { create(:post, author: user) }
+          let!(:post) { create(:post, :with_tag, author: user) }
+          let(:tag) { post.tags.first }
 
           describe 'edit' do
             it 'renders the edit form when Edit is clicked' do
@@ -122,6 +127,7 @@ RSpec.describe 'Posts', type: :system do
               end
               expect(page).to have_text('Edit Post')
               expect(page).to have_text(post.title)
+              expect(page).to have_text(tag.name)
             end
           end
 
@@ -134,10 +140,18 @@ RSpec.describe 'Posts', type: :system do
                 click_on('Edit')
               end
               fill_in('Title', with: new_title)
+              find('.tagsinput input').click.set('test-tag')
+              find('.tagsinput input').native.send_keys(:return)
+              find(".tagsinput [data-tag='#{tag.name}'] a.is-delete").click
+              find('.tagsinput input').click.set('another-tag')
+              find('.tagsinput input').native.send_keys(:return)
               find('trix-editor').click.set(new_body)
               click_on('Submit')
               expect(page).to have_text('Updated the post successfully!')
               expect(page).to have_text(new_title)
+              expect(page).to have_text('test-tag')
+              expect(page).to have_text('another-tag')
+              expect(page).not_to have_text(tag.name)
               expect(page).to have_text(new_body)
               expect(page).not_to have_button('Submit')
               expect(page).not_to have_button('Cancel')
