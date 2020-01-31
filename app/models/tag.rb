@@ -11,6 +11,5 @@ class Tag < ApplicationRecord
 
   def clean_name
     name.strip!
-    name.downcase!
   end
 end
