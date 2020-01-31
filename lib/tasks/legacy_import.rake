@@ -7,12 +7,12 @@ namespace :legacy do
       contents = File.read(page)
       config_text = contents.split('---')[1]
       body = contents.split('---')[2]
-      config = YAML.load(config_text)
+      config = YAML.safe_load(config_text)
 
       post = Post.create!(
         title: config['title'],
         slug: File.basename(page, '.md'),
-        created_at: Time.parse(config['date'])
+        created_at: Time.zone.parse(config['date'])
       )
       post.content = ActionText::RichText.create(
         name: 'content',
