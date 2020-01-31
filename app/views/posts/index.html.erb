@@ -14,7 +14,7 @@
     </div>
     <div class="message-body">
       <%= render partial: 'tags', locals: { post: post } %>
-      <%= truncate(post.content.to_s, length: 1000, omission: '...') %>
+      <%= truncate(post.content.to_plain_text, length: 1000, omission: '...') %>
     </div>
   </article>
 <% end%>
