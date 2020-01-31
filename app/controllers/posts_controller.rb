@@ -6,11 +6,12 @@ class PostsController < ApplicationController
   before_action :authorize_post, only: %i[show edit update]
 
   def index
-    @posts = Post.all
+    @posts = Post.all.order(created_at: :desc)
     @tags = Tag.order(:name)
     if params[:tag]
       @posts = @posts.joins(:tags).where(tags: { name: params[:tag] })
     end
+    @posts = @posts.page(params[:page])
     authorize @posts
   end
 
