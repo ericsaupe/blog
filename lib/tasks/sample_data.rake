@@ -19,10 +19,12 @@ namespace :sample_data do
     next unless Post.all.empty?
 
     # Anonymous posts
-    FactoryBot.create(:action_text,
-                      record: FactoryBot.create(:post, :anonymous))
-    # User posts
-    FactoryBot.create(:action_text,
-                      record: FactoryBot.create(:post, author: user))
+    10.times do
+      if rand > 0.3
+        FactoryBot.create(:post, :with_tag, author: user)
+      else
+        FactoryBot.create(:post, :with_tag, :anonymous)
+      end
+    end
   end
 end

@@ -1,3 +1,7 @@
+<% if params[:tag] %>
+  <h1 class="title"><%= params[:tag] %></h1>
+<% end %>
+
 <% @posts.each do |post| %>
   <article id="post-<%= post.id %>" class="message">
     <div class="message-header">

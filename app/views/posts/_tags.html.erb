@@ -1,5 +1,7 @@
 <% post.tags.each do |tag| %>
-  <span class="tag is-primary">
-    <%= tag.name %>
-  </span>
+  <%= link_to posts_path(tag: tag.name) do %>
+    <span class="tag is-primary">
+      <%= tag.name %>
+    </span>
+  <% end %>
 <% end %>

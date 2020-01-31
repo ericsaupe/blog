@@ -7,6 +7,9 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.all
+    if params[:tag]
+      @posts = @posts.joins(:tags).where(tags: { name: params[:tag] })
+    end
     authorize @posts
   end
 

@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'Posts', type: :system do
   describe 'index' do
-    let!(:posts) { create_list(:post, 3) }
+    let!(:posts) { create_list(:post, 3, :with_tag) }
 
     it 'renders a list of posts' do
       visit '/'
@@ -12,6 +12,18 @@ RSpec.describe 'Posts', type: :system do
         expect(page).to have_link(post.title)
         expect(page).to have_text(post.content.body.to_plain_text)
       end
+    end
+
+    it 'filters by tag' do
+      post = posts.first
+      tag = create(:tag)
+      post.tags << tag
+
+      visit '/'
+      click_on(tag.name)
+      expect(page).to have_link(posts.first.title)
+      expect(page).not_to have_link(posts.second.title)
+      expect(page).not_to have_link(posts.third.title)
     end
   end
 
