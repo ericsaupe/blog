@@ -1,9 +1,7 @@
 <div class="row">
   <% post.tags.each do |tag| %>
-    <%= link_to posts_path(tag: tag.name) do %>
-      <span class="tag is-primary">
-        <%= tag.name %>
-      </span>
-    <% end %>
+    <span class="tag is-link">
+      <%= link_to tag.name, posts_path(tag: tag.name) %>
+    </span>
   <% end %>
 </div>
