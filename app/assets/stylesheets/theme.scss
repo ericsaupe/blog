@@ -20,4 +20,8 @@ trix-toolbar {
 // Extending Bulma content to trix-content for better formatting
 .trix-content {
   @extend .content;
+
+  h1 {
+    @extend .title;
+  }
 }

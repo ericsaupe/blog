@@ -15,14 +15,14 @@
     <div class="navbar-start">
       <%= link_to 'Home', root_path, class: 'navbar-item' %>
 
-      <% if @tags.present? %>
+      <% if tags.present? %>
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link">
             Tags
           </a>
 
           <div class="navbar-dropdown">
-            <% @tags.each do |tag| %>
+            <% tags.each do |tag| %>
               <%= link_to tag.name, posts_path(tag: tag.name), class: 'navbar-item' %>
             <% end %>
           </div>

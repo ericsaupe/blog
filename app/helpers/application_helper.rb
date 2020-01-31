@@ -21,4 +21,11 @@ module ApplicationHelper
       key
     end
   end
+
+  ##
+  # Returns a list of valid tags listed alphabetically
+  #
+  def tags
+    Tag.order(:name)
+  end
 end
