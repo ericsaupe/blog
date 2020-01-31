@@ -10,7 +10,7 @@ RSpec.describe 'Posts', type: :system do
       visit '/'
       posts.each do |post|
         expect(page).to have_link(post.title)
-        expect(page).to have_text(post.content)
+        expect(page).to have_text(post.content.body.to_plain_text)
       end
     end
   end
