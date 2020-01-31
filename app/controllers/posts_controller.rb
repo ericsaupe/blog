@@ -7,6 +7,7 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.all
+    @tags = Tag.order(:name)
     if params[:tag]
       @posts = @posts.joins(:tags).where(tags: { name: params[:tag] })
     end
