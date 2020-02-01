@@ -38,3 +38,5 @@ spec/examples.txt
 
 # Ignore legacy content used for importing
 /lib/assets/legacy_source/**/*
+
+/config/credentials/production.key

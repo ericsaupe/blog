@@ -17,4 +17,5 @@ Style/StringLiterals:
 
 Metrics/BlockLength:
   Exclude:
+    - 'config/environments/*.rb'
     - 'spec/**/*'
