@@ -20,4 +20,13 @@ class Post < ApplicationRecord
       description: content.to_plain_text.truncate(300),
     }
   end
+
+  ##
+  # Helper method for displaying the author either with name or email
+  #
+  def display_author
+    return 'Anonymous' if author.blank?
+
+    author.name || author.email
+  end
 end

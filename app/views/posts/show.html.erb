@@ -1,6 +1,6 @@
 <h1 class="title"><%= @post.title %></h1>
 <h2 class="subtitle">
-  By <%= @post.author&.email || 'Anonymous' %>
+  By <%= @post.display_author %>
   at <%= @post.created_at.strftime('%B %e, %Y') %>
 </h2>
 <%= render partial: 'tags', locals: { post: @post } %>
