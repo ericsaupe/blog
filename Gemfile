@@ -35,6 +35,7 @@ gem 'awesome_rails_console'
 gem 'devise'
 gem 'friendly_id'
 gem 'kaminari'
+gem 'meta-tags'
 gem 'pundit'
 gem 'rolify'
 gem 'rubocop', require: false

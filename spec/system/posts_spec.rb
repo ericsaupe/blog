@@ -50,7 +50,7 @@ RSpec.describe 'Posts', type: :system do
           visit '/'
           expect(page).not_to have_link('New Post')
 
-          visit '/posts/new'
+          visit '/new'
           expect(page).not_to have_selector('h1', text: 'New Post')
           expect(page).not_to have_field('Title')
           expect(page).not_to have_css('input#post_title[required]')
@@ -68,7 +68,7 @@ RSpec.describe 'Posts', type: :system do
             visit '/'
             expect(page).not_to have_link('Edit')
 
-            visit "/posts/#{post.id}/edit"
+            visit "/#{post.id}/edit"
             expect(page).not_to have_text('Edit Post')
             expect(page).not_to have_selector('h1', text: post.title)
           end
@@ -193,7 +193,7 @@ RSpec.describe 'Posts', type: :system do
               visit '/'
               expect(page).not_to have_link('Edit')
 
-              visit "/posts/#{post.id}/edit"
+              visit "/#{post.id}/edit"
               expect(page).not_to have_text('Edit Post')
               expect(page).not_to have_selector('h1', text: post.title)
             end
