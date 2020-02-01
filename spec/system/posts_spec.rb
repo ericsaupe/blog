@@ -4,14 +4,26 @@ require 'rails_helper'
 
 RSpec.describe 'Posts', type: :system do
   describe 'index' do
-    let!(:posts) { create_list(:post, 3) }
+    let!(:posts) { create_list(:post, 3, :with_tag) }
 
     it 'renders a list of posts' do
       visit '/'
       posts.each do |post|
         expect(page).to have_link(post.title)
-        expect(page).to have_text(post.content)
+        expect(page).to have_text(post.content.body.to_plain_text)
       end
+    end
+
+    it 'filters by tag' do
+      post = posts.first
+      tag = create(:tag)
+      post.tags << tag
+
+      visit '/'
+      click_on(tag.name)
+      expect(page).to have_link(posts.first.title)
+      expect(page).not_to have_link(posts.second.title)
+      expect(page).not_to have_link(posts.third.title)
     end
   end
 
@@ -38,7 +50,7 @@ RSpec.describe 'Posts', type: :system do
           visit '/'
           expect(page).not_to have_link('New Post')
 
-          visit '/posts/new'
+          visit '/new'
           expect(page).not_to have_selector('h1', text: 'New Post')
           expect(page).not_to have_field('Title')
           expect(page).not_to have_css('input#post_title[required]')
@@ -56,7 +68,7 @@ RSpec.describe 'Posts', type: :system do
             visit '/'
             expect(page).not_to have_link('Edit')
 
-            visit "/posts/#{post.id}/edit"
+            visit "/#{post.id}/edit"
             expect(page).not_to have_text('Edit Post')
             expect(page).not_to have_selector('h1', text: post.title)
           end
@@ -181,7 +193,7 @@ RSpec.describe 'Posts', type: :system do
               visit '/'
               expect(page).not_to have_link('Edit')
 
-              visit "/posts/#{post.id}/edit"
+              visit "/#{post.id}/edit"
               expect(page).not_to have_text('Edit Post')
               expect(page).not_to have_selector('h1', text: post.title)
             end

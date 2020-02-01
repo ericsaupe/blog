@@ -9,4 +9,15 @@ class Post < ApplicationRecord
   belongs_to :author, class_name: 'User', optional: true
   has_many :taggables, as: :taggable, dependent: :destroy
   has_many :tags, through: :taggables
+
+  ##
+  # Method for defining meta-tag related data
+  # @see https://github.com/kpumuk/meta-tags#using-metatags-in-view
+  #
+  def to_meta_tags
+    {
+      title: title,
+      description: content.to_plain_text.truncate(300),
+    }
+  end
 end

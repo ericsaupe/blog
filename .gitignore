@@ -35,3 +35,6 @@ yarn-debug.log*
 .yarn-integrity
 
 spec/examples.txt
+
+# Ignore legacy content used for importing
+/lib/assets/legacy_source/**/*

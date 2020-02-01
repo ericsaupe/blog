@@ -1,0 +1,12 @@
+// This file extends classes found from imported legacy posts with Bulma specific
+// classes to match styles.
+
+@import 'theme';
+
+h3.graf {
+  @extend .subtitle;
+}
+
+.imageCaption {
+  @extend .help;
+}

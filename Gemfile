@@ -7,8 +7,8 @@ ruby '2.6.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.0'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3', '~> 1.4'
+# Use postgres as the database for Active Record
+gem 'pg'
 # Use Puma as the app server
 gem 'puma', '~> 3.12'
 # Use SCSS for stylesheets
@@ -34,6 +34,8 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'awesome_rails_console'
 gem 'devise'
 gem 'friendly_id'
+gem 'kaminari'
+gem 'meta-tags'
 gem 'pundit'
 gem 'rolify'
 gem 'rubocop', require: false

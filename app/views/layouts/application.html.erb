@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Blog</title>
+    <%= display_meta_tags site: 'Eric Saupe', reverse: true %>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -13,7 +13,7 @@
     <%= render partial: 'shared/navbar' %>
     <%= render partial: 'shared/flash' %>
 
-    <section class="section">  
+    <section class="section">
       <%= yield %>
     </section>
   </body>

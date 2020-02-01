@@ -6,13 +6,20 @@ class PostsController < ApplicationController
   before_action :authorize_post, only: %i[show edit update]
 
   def index
-    @posts = Post.all
+    @posts = Post.all.order(created_at: :desc)
+    if params[:tag]
+      @posts = @posts.joins(:tags).where(tags: { name: params[:tag] })
+      set_meta_tags title: params[:tag],
+                    keywords: params[:tag]
+    end
+    @posts = @posts.page(params[:page])
     authorize @posts
   end
 
   def new
     @post = Post.new
     authorize @post
+    set_meta_tags title: 'New Post'
   end
 
   def create
@@ -80,6 +87,7 @@ class PostsController < ApplicationController
   #
   def set_post
     @post = Post.friendly.find(params[:id])
+    set_meta_tags @post
   end
 
   ##
