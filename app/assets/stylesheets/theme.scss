@@ -2,6 +2,10 @@
 @import 'bulma/bulma';
 @import 'bulmaswatch/superhero/_overrides';
 
+.message-body > p {
+  word-wrap: break-word;
+}
+
 trix-toolbar {
   .trix-button {
     background: $light;

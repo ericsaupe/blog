@@ -40,3 +40,4 @@ spec/examples.txt
 /lib/assets/legacy_source/**/*
 
 /config/credentials/production.key
+.DS_Store

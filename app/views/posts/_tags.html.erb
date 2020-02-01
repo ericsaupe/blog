@@ -1,11 +1,7 @@
 <div class="row">
-  <div class="field is-grouped is-grouped-multiline">
-    <div class="control">
-      <div class="tags">
-        <% post.tags.each do |tag| %>
-          <%= link_to tag.name, posts_path(tag: tag.name), class: 'tag is-link' %>
-        <% end %>
-      </div>
-    </div>
+  <div class="tags">
+    <% post.tags.each do |tag| %>
+      <%= link_to tag.name, posts_path(tag: tag.name), class: 'tag is-link' %>
+    <% end %>
   </div>
 </div>
