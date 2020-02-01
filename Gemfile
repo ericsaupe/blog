@@ -32,6 +32,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 # Our gems
 gem 'awesome_rails_console'
+gem 'aws-sdk-s3', require: false
 gem 'devise'
 gem 'friendly_id'
 gem 'kaminari'
