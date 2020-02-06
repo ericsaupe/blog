@@ -1,0 +1,54 @@
+.sidebar {
+  .sidebar-overlay {
+    // When not in use, hide the overlay in the corner.
+    position: fixed;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    z-index: 99; // Positioned just under the sidebar
+    background-color: black;
+    // Delay changing the width/height so the opacity transition can complete.
+    transition:
+      opacity 300ms ease-in-out,
+      width 0ms ease-in-out 300ms,
+      height 0ms ease-in-out 300ms;
+  }
+
+  .sidebar-content {
+    position: fixed;
+    z-index: 100;
+    background-color: white;
+    height: 100%;
+
+    // Animate sliding in/out
+    transition: 300ms ease-in-out;
+    transition-property: left, right, top, bottom;
+    overflow-x: hidden;
+  }
+
+  &.is-active {
+    .sidebar-overlay {
+      width: 100%;
+      height: 100%;
+      opacity: 0.5;
+      transition:
+        opacity 300ms ease-in-out,
+        width 0ms,
+        height 0ms;
+    }
+
+    // The hidden position of the <Sidebar.Content /> is managed in the component
+    // itself, but since we're managing open/closed status in the parent <Sidebar />
+    // then we use css here to override the jss to properly display the content.
+    .sidebar-content {
+      left: 0;
+
+      &.is-right {
+        left: auto;
+        right: 0;
+      }
+    }
+  }
+}

@@ -3,5 +3,5 @@
   By <%= @post.display_author %>
   on <%= @post.created_at.strftime('%B %e, %Y') %>
 </h2>
-<%= render partial: 'tags', locals: { post: @post } %>
+<%= render partial: 'shared/tags', locals: { post: @post } %>
 <%= @post.content %>

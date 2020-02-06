@@ -1,14 +1,18 @@
 <nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
+  <div class="navbar-brand" data-controller="sidebar">
     <%= link_to root_path, class: 'navbar-item' do %>
       <%= image_tag 'logo.svg', width: '150px' %>
     <% end %>
 
-    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+    <div
+        class="navbar-burger burger"
+        data-action="click->sidebar#open"
+        data-target="sidebar.trigger" >
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
-    </a>
+    </div>
+    <%= render partial: 'shared/mobile_menu' %>
   </div>
 
   <div class="navbar-menu">
@@ -23,7 +27,7 @@
 
           <div class="navbar-dropdown">
             <% tags.each do |tag| %>
-              <%= link_to tag.name, posts_path(tag: tag.name), class: 'navbar-item' %>
+              <%= link_to tag.name, tag_path(id: CGI.escape(tag.name)), class: 'navbar-item' %>
             <% end %>
           </div>
         </div>

@@ -7,6 +7,16 @@ class Tag < ApplicationRecord
 
   before_validation :clean_name
 
+  ##
+  # Method for defining meta-tag related data
+  # @see https://github.com/kpumuk/meta-tags#using-metatags-in-view
+  #
+  def to_meta_tags
+    {
+      title: name
+    }
+  end
+
   private
 
   def clean_name
