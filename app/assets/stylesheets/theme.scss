@@ -17,13 +17,20 @@ trix-toolbar {
 }
 
 .trix-content[contenteditable] {
-  background-color: $input-background-color;
-  color: $input-color;
+  background-color: $body-background-color;
 }
 
 // Extending Bulma content to trix-content for better formatting
 .trix-content {
   @extend .content;
+
+  code {
+    background-color: $background;
+  }
+
+  pre {
+    background-color: $background;
+  }
 
   h1 {
     @extend .title;
