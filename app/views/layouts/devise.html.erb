@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Blog</title>
+    <%= display_meta_tags site: 'Eric Saupe', reverse: true %>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -15,7 +16,7 @@
 
     <section class="section">
       <div class="columns">
-        <div class="column is-half is-offset-one-quarter"> 
+        <div class="column is-half is-offset-one-quarter">
           <%= yield %>
         </div>
       </div>
